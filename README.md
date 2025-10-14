@@ -153,3 +153,18 @@ The Ames Housing dataset contains detailed information on residential homes in A
       * 30% for validation. testing the model
    * `random_state=42` ensures reproducability.
    * This allows the evaluation of the model performance before using the actual Kaggle test set. 
+
+
+### Model Training and Evaluation
+1. Linear Regression with k-fold CV
+   ```python
+   lin_reg = LinearRegression()
+   ```
+   * This creates an ordinary least square model.
+
+   ```python
+   lin_cv_scores = cross_val_score(lin_reg, X_train, y_train, cv=5, scoring='neg_mean_squared_error')
+   ```
+   * `cv=5` splits the data into 5 folds where each fold is used once as a hold-out.
+   * `cross_val_scores` returns negative mean squared error, where a higher number means better performance. 
+
