@@ -110,3 +110,11 @@ The Ames Housing dataset contains detailed information on residential homes in A
    ```
    * Use `pd.get_dummies` (One-Hot Encoding) to convert categorical columns into binary (0/1) columns in both `df_train` and `df_test`.
    * Use `drop_first=True` to avoid multicollinearity. 
+
+3. Align Train and Test Columns
+   ```python
+   df_test_encoded = df_test_encoded.reindex(columns=df_train_encoded.columns.drop('SalePrice'), fill_value=0)
+   ```
+   * `reindex()` aligns `df_test` columns with `df_train`.
+   * `fill_value=0` fills missing columns with 0.
+   * This ensures both datasets have identical feature structures for prediction.
