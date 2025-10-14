@@ -1,8 +1,9 @@
-# SC5002 Lab Assignment 2
+<img width="468" height="39" alt="image" src="https://github.com/user-attachments/assets/f87f9ea4-01ed-4582-81f1-4ad241027c26" /># SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
 
 ## Objectives
 The goal of this project is to explore the differences between Linear Regression and Ridge Regression by using the dataset [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). We aim to improve the performance of both models by analyzing the home sale price prediction. 
+
 
 ## Dataset
 The dataset we used is Kaggle's [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). 
@@ -12,6 +13,7 @@ The Ames Housing dataset contains detailed information on residential homes in A
 ### Key Details 
 (do we want to add more?)
 
+
 ## Getting Started
 ### Prerequisites
 
@@ -20,12 +22,14 @@ The Ames Housing dataset contains detailed information on residential homes in A
    ```sh
    pip install kaggle
    ```
+   
 2. Set Kaggle API credentials
    ```python
    import os
    os.environ['KAGGLE_USERNAME'] = 'your_kaggle-username'
    os.environ['KAGGLE_KEY'] = 'your_kaggle-api-key'
    ```
+   
 3. Download the dataset
    ```sh
    !kaggle competitions download -c house-prices-advanced-regression-techniques
@@ -34,6 +38,7 @@ The Ames Housing dataset contains detailed information on residential homes in A
       ```python
       house-prices-advanced-regression-techniques.zip
       ```
+      
 4. Open and extract the ZIP file
    ```python
    import zipfile
@@ -49,12 +54,8 @@ The Ames Housing dataset contains detailed information on residential homes in A
      sample_submission.csv
      data_description.txt
      ```
-5. Import pandas
-   ```python
-   import pandas as pd
-   ```
-   * `pandas` is a Python library for data manipulation and analysis, providing the DataFrame structure.
-6. Read the CSV files into DataFrames
+     
+5. Read the CSV files into DataFrames
    ```python
    df_train = pd.read_csv('train.csv')
    df_test = pd.read_csv('test.csv')
@@ -63,4 +64,49 @@ The Ames Housing dataset contains detailed information on residential homes in A
    * `train.csv` is used for model training, it includes both features and the target `SalePrice`.
    * `test.csv` is used for model prediction, it contains only the features.
    * `sample_submission.csv` shows the expected format for the final submission, containing only `Id` and `SalePrice`.
-### Excecuting Programme 
+  
+6. Preview the first few rows of each DataFrame
+   ```python
+   print("Train head:")
+   print(df_train.head())
+   
+   print("\nTest head:")
+   print(df_test.head())
+   
+   print("\nSample Submission head:")
+   print(df_sub.head())
+   ```
+   *`.head()` prints the first 5 rows
+   *This allows us to check if the files were loaded correctly.
+   
+### Data Preprocessing 
+1. Handling Missing Values
+   ```python
+   num_cols = df_train.select_dtypes(include=['int64','float64']).columns.tolist()
+   ```
+   * Select columns in `df_train` whose data types are either integers or decimals (numeric) and convert them into a Python list
+   ```python
+   num_cols.remove('SalePrice')  # exclude target
+   ```
+   * Remove `SalePrice` as it is not a feature, it's the target.
+   ```python
+   for col in num_cols:
+       median = df_train[col].median()
+       df_train[col] = df_train[col].fillna(median)
+       df_test[col] = df_test[col].fillna(median)
+   ```
+   * For each selected numeric columns in `df_train`, find the median and fill missing values in `df_train` and `df_test` with it.
+   * The median value is used as it is not as sensitive to outliers compared to the mean.
+   * This ensures that there will be no NaN values remaining, avoiding errors during the model training, ensuring all samples are valid and complete for modelling.
+   
+2. Encode Categorical Variables
+   ```python
+   cat_cols = df_train.select_dtypes(include=['object']).columns.tolist()!
+   ```
+   * Select columns in `df_train` with categorical columns (string) and convert them into a Python list.
+   ```python
+   df_train_encoded = pd.get_dummies(df_train, columns=cat_cols, drop_first=True)
+   df_test_encoded = pd.get_dummies(df_test, columns=cat_cols, drop_first=True)
+   ```
+   * Use `pd.get_dummies` (One-Hot Encoding) to convert categorical columns into binary (0/1) columns.
+   * 
