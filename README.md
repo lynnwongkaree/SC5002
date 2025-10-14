@@ -108,5 +108,5 @@ The Ames Housing dataset contains detailed information on residential homes in A
    df_train_encoded = pd.get_dummies(df_train, columns=cat_cols, drop_first=True)
    df_test_encoded = pd.get_dummies(df_test, columns=cat_cols, drop_first=True)
    ```
-   * Use `pd.get_dummies` (One-Hot Encoding) to convert categorical columns into binary (0/1) columns.
-   * 
+   * Use `pd.get_dummies` (One-Hot Encoding) to convert categorical columns into binary (0/1) columns in both `df_train` and `df_test`.
+   * Use `drop_first=True` to avoid multicollinearity. 
