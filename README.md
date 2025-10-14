@@ -1,4 +1,4 @@
-# SC5002 Lab Assignment 2
+<img width="468" height="68" alt="image" src="https://github.com/user-attachments/assets/f8ada296-0f0b-428b-b5d8-7aabbc0b56cc" /># SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
 
 ## Objectives
@@ -118,3 +118,15 @@ The Ames Housing dataset contains detailed information on residential homes in A
    * `reindex()` aligns `df_test` columns with `df_train`.
    * `fill_value=0` fills missing columns with 0.
    * This ensures both datasets have identical feature structures for prediction.
+
+4. Seperate Features and Target
+   ```python
+   X = df_train_encoded.drop('SalePrice', axis=1)
+   y = np.log1p(df_train_encoded['SalePrice']) # log transform
+   ```
+   * Split the data into:
+      * `X`: All input features.
+      * `y`: `SalePrice` only.
+   * `axis=1` drops the whole column `SalePrice`.
+   * `np.log1p()` 
+
