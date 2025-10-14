@@ -1,4 +1,4 @@
-<img width="468" height="39" alt="image" src="https://github.com/user-attachments/assets/f87f9ea4-01ed-4582-81f1-4ad241027c26" /># SC5002 Lab Assignment 2
+# SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
 
 ## Objectives
