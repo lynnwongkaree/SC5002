@@ -1,4 +1,4 @@
-<img width="468" height="68" alt="image" src="https://github.com/user-attachments/assets/f8ada296-0f0b-428b-b5d8-7aabbc0b56cc" /># SC5002 Lab Assignment 2
+# SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
 
 ## Objectives
@@ -109,7 +109,8 @@ The Ames Housing dataset contains detailed information on residential homes in A
    df_test_encoded = pd.get_dummies(df_test, columns=cat_cols, drop_first=True)
    ```
    * Use `pd.get_dummies` (One-Hot Encoding) to convert categorical columns into binary (0/1) columns in both `df_train` and `df_test`.
-   * Use `drop_first=True` to avoid multicollinearity. 
+   * Use `drop_first=True` to avoid multicollinearity.
+   * This turns text categories into numbers the model can understand.
 
 3. Align Train and Test Columns
    ```python
@@ -127,6 +128,28 @@ The Ames Housing dataset contains detailed information on residential homes in A
    * Split the data into:
       * `X`: All input features.
       * `y`: `SalePrice` only.
-   * `axis=1` drops the whole column `SalePrice`.
-   * `np.log1p()` 
+   * `drop('SalePrice', axis=1)` removes the whole column `SalePrice` from `df_train`.
+   * `np.log1p()` log-transforms `SalePrice` to reduce skewness and make the data more normally distributed.
+   * This improves regression performance by stabilizing variance.
 
+5. Scale Numerical Features
+   ```python
+   scaler = StandardScaler()
+   X_scaled = scaler.fit_transform(X)
+   X_test_scaled = scaler.transform(df_test_encoded)
+   ```
+   * `StandardScaler()` standardizes the data such that each column has mean = 0 and standard deviation = 1
+   * `fit()` learns the mean and standard deviation from training data to establish scaling parameters.
+   * `transform()` uses the parameters determined from `fit()` to scale data.
+   * Only `transform()` is used on the test set as the same mean and standard deviation has to be used to ensure consistant scaling of the test set with the training set. 
+   * This normalizes features so all are on the same scale.
+
+6. Train-test Split for Evaluation
+   ```python
+   X_train, X_val, y_train, y_val = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+   ```
+   * Splits data into 70/30:
+      * 70% training for fitting the model
+      * 30% for validation. testing the model
+   * `random_state=42` ensures reproducability.
+   * This allows the evaluation of the model performance before using the actual Kaggle test set. 
