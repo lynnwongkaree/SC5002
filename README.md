@@ -2,16 +2,13 @@
 Exploring Linear and Ridge Regression with Cross-Validation 
 
 ## Objectives
-The goal of this project is to explore the differences between Linear Regression and Ridge Regression by using the dataset [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). We aim to improve the performance of both models by analyzing the home sale price prediction. 
+The goal of this project is to explore the differences between Linear Regression and Ridge Regression by using the dataset [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). We aim to compare the strengths and weaknesses of both models to improve their performance.
 
 
 ## Dataset
 The dataset we used is Kaggle's [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). 
 
-The Ames Housing dataset contains detailed information on residential homes in Ames, Iowa. It contains 79 explanatory variables describing almost every aspect of a house, 1460 training examples and 1459 test examples , each representing an individual residential property. This dataset provides a realistic, complex regression problem that combines both numerical and categorical predictors. 
-
-### Key Details 
-(do we want to add more?)
+The Ames Housing dataset contains detailed information on residential homes in Ames, Iowa. It contains 79 explanatory variables describing almost every aspect of a house and 1460 examples, each representing an individual residential property. This dataset provides a realistic, complex regression problem that combines both numerical and categorical predictors. 
 
 
 ## Steps Taken
@@ -40,7 +37,9 @@ Finally, the dataset was split into training (70%) and validation (30%) sets wit
 
 #### Linear Regression
 
-Model performance was evaluated using 5-fold cross-validation (`cv=5`) with negative mean squared error (MSE) to evaluare model stability. The root mean square error (RMSE) was then calculated for each fold to measure the average prediction error, where lower values indicate a better fit. The results were `Linear Regression CV RMSE: [0.12892002 0.28797436 0.16607483 0.11685145 0.21874038]` with a mean of `0.1837122095125966`. 
+Model performance was evaluated using 5-fold cross-validation (`cv=5`) with negative mean squared error (MSE) to evaluare model stability. The root mean square error (RMSE) was then calculated for each fold to measure the average prediction error, where lower values indicate a better fit. 
+
+The results were `Linear Regression CV RMSE: [0.12892002 0.28797436 0.16607483 0.11685145 0.21874038]` with a mean of `0.1837122095125966`. 
 
 This suggests that the model's predictions are within about ±20% of the actual house prices performing well for fold (`0.11685145`) but struggling with fold (`0.28797436`). This could indicate that there are maybe outliers or different distributions in that fold. 
 
@@ -87,23 +86,28 @@ Process the data with the same method as shown above.
 
 #### Correlation heatmap
 
-We computed the correlation matrix of all variables, and the 20 most correlated features with `SalePrice` were selected. A heatmap was then plotted to visualise how these features relate to one another. This allowed us to identify the impact of different characteristics on house value (`SalePrice`).
+We computed the correlation matrix of all variables, and the 20 most correlated features with `SalePrice` were selected. A heatmap (Figure 1) was then plotted to visualise how these features relate to one another. This allowed us to identify the impact of different characteristics on house value (`SalePrice`).
 
 <img width="1035" height="800" alt="image" src="https://github.com/user-attachments/assets/702c479d-cd3a-486d-b81b-e77f3d15eef3" />
+Figure 1
 
-From the resulting heatmap, factors related to quality (`OverallQual`, `KitchenQual`, `GarageFinish`) and size (`GrLivArea`, `TotalBsmtSF`) exhibit strong positive correlations with price; while factors such materials and finishes (`ExterQual_TA`, `KitchenQual_TA`) have negative or weaker correlations. 
+From Figure 1, factors related to quality (`OverallQual`, `KitchenQual`, `GarageFinish`) and size (`GrLivArea`, `TotalBsmtSF`) exhibit strong positive correlations with price; while factors such materials and finishes (`ExterQual_TA`, `KitchenQual_TA`) have negative or weaker correlations. 
 
 #### Residual distribution 
 
 Residuals (the difference between true and predicted prices on the training data) were plotted. 
 
+<img width="691" height="547" alt="image" src="https://github.com/user-attachments/assets/950e7968-a123-4ac4-a1e8-73410d43cd38" />
+Figure 2
 
-
-The resulting graph was a slightly right-skewed curve centred close to 0, indicating that the model’s predictions are generally accurate but tend to slightly underestimate higher-priced properties. There are no extreme outliers, meaning that no single variable is disproportionately influencing the predictions.
+Figure 2 shows a slightly right-skewed curve centred close to 0, indicating that the model’s predictions are generally accurate but tend to slightly underestimate higher-priced properties. There are no extreme outliers, meaning that no single variable is disproportionately influencing the predictions.
 
 #### Predicted price distribution 
 
-The 3rd histogram is one of predicted sale prices, and depicts how the model generalises unseen test data. 
+<img width="695" height="547" alt="image" src="https://github.com/user-attachments/assets/04fc5feb-ed8f-4175-ad88-0ebc56f9d23e" />
+Figure 3
+
+Figure 3 is one of predicted sale prices, and depicts how the model generalises unseen test data. 
 
 The distribution is unimodal and right-skewed, meaning that most properties are “moderately” priced and fewer are very expensive. 
 Additionally, there are no visible irregularities - like spikes in the fitted density line or gaps in the distribution. This translates to more stable and realistic predictions within a reasonable range, i.e., the predicted values stay in line with the training data’s actual sale prices. 
@@ -111,8 +115,9 @@ Additionally, there are no visible irregularities - like spikes in the fitted de
 #### Feature importance plot 
 
 <img width="1139" height="547" alt="image" src="https://github.com/user-attachments/assets/2b408601-a126-4eb2-a010-cf25f85669c5" />
+Figure 3
 
-The final image (barplot) ranks the 20 top features by their absolute coefficient magnitudes. 
+FIgure 3 shows a barplot that ranks the 20 top features by their absolute coefficient magnitudes. 
 
 From this, we can conclude that more significant factors impacting sale price of house are factors like overall material and quality and above-ground living area (“Overallqual” and “GrLivArea”)- we can conclude that they are primary determinants of higher prices. Conversely, factors like House age (“YearBuilt”)  have comparably smaller coefficients, indicating a smaller influence on price. 
 
