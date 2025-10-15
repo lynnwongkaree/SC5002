@@ -115,11 +115,11 @@ Additionally, there are no visible irregularities - like spikes in the fitted de
 #### Feature importance plot 
 
 <img width="1139" height="547" alt="image" src="https://github.com/user-attachments/assets/2b408601-a126-4eb2-a010-cf25f85669c5" />
-Figure 3
+Figure 4
 
-FIgure 3 shows a barplot that ranks the 20 top features by their absolute coefficient magnitudes. 
+FIgure 4 shows a barplot that ranks the 20 top features by their absolute coefficient magnitudes. 
 
-From this, we can conclude that more significant factors impacting sale price of house are factors like overall material and quality and above-ground living area (“Overallqual” and “GrLivArea”)- we can conclude that they are primary determinants of higher prices. Conversely, factors like House age (“YearBuilt”)  have comparably smaller coefficients, indicating a smaller influence on price. 
+From this, we can conclude that more significant factors impacting sale price of house are factors like overall material and quality and above-ground living area (`Overallqual` and `GrLivArea`)- we can conclude that they are primary determinants of higher prices. Conversely, factors like House age (`YearBuilt`)  have comparably smaller coefficients, indicating a smaller influence on price. 
 
 There is also an observable gradual decrease in coefficient sizes. This shows that the model spreads importance more evenly across features and does not rely heavily on one or two. This means that the Ridge Regression prevents overfitting, and is a balanced, reliable model. 
 
