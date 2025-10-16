@@ -124,5 +124,13 @@ From this, we can conclude that more significant factors impacting sale price of
 There is also an observable gradual decrease in coefficient sizes. This shows that the model spreads importance more evenly across features and does not rely heavily on one or two. This means that the Ridge Regression prevents overfitting, and is a balanced, reliable model. 
 
 
+## Contributions
+
+Frank: 
+
+Lynn:
+
+Cadence:
+
 
    
