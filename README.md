@@ -845,11 +845,11 @@ Finally, the dataset was split into training (70%) and validation (30%) sets wit
 
 Model performance was evaluated using 5-fold cross-validation (`cv=5`) with negative mean squared error (MSE) to evaluare model stability. The root mean square error (RMSE) was then calculated for each fold to measure the average prediction error, where lower values indicate a better fit. 
 
-The results were `Linear Regression CV RMSE: [0.12892002, 0.28893442, 0.1681797, 0.13086239, 0.2067854]` with a mean of approximately `0.184136`. 
+The results were `Linear Regression CV RMSE: [0.12892002, 0.28797436, 0.16607483, 0.11685145, 0.21874038]` with a mean of approximately `0.18371220951259662`. 
 
-This suggests that the model's predictions are within about ±20% of the actual house prices performing well for fold (`0.12892002`) but struggling with fold (`0.28893442`). This could indicate that there are outliers or different distributions in that fold. 
+This suggests that the model's predictions are within about ±20% of the actual house prices performing well for fold (`0.12892002`) but struggling with fold (`0.28797436`). This could indicate that there are outliers or different distributions in that fold. 
 
-The R square score was calculated to measure how much of the variance in the target variable the model could explain. It returns a value of `0.7831002489557712`, meaning the model accounts for approximately 78.3% of the variance in house prices. However, there is still a remaining 21.7% of the variation unexplained, likely due to some factors the model did not capture. This includes missing features, noise and nonlinear patterns. 
+The R square score was calculated to measure how much of the variance in the target variable the model could explain. It returns a value of `0.7832441336404377`, meaning the model accounts for approximately 78.3% of the variance in house prices. However, there is still a remaining 21.7% of the variation unexplained, likely due to some factors the model did not capture. This includes missing features, noise and nonlinear patterns. 
 
    
 #### Ridge Regression
@@ -857,19 +857,19 @@ The R square score was calculated to measure how much of the variance in the tar
 Used multiple alpha values to test different regularization strengths, to find the optimal balance between bias and variance. Smaller alphas behave like plain Linear Regression, while larger alpha apply stronger penalties. The best alpha was determined automatically using 5-fold cross-validation with MSE as the evaluation metric:
   
 ```sh
-Best alpha for Ridge: 10.0
+Best alpha for Ridge: 100.0
 ```
 
-This means that the alpha value 10 achieved the lowest average MSE. The model's performance across folds was then assessed using RMSE, where lower values indicate better predictive accuracy. 
+This means that the alpha value 100 achieved the lowest average MSE. The model's performance across folds was then assessed using RMSE, where lower values indicate better predictive accuracy. 
 
 ```sh
-Ridge CV RMSE scores: [0.13009476 0.26438578 0.13994853  0.12069886 0.15227415]
-Ridge CV RMSE mean: 0.16188
+Ridge CV RMSE scores: [0.12418077 0.25096448 0.1566775  0.11952967 0.17385427]
+Ridge CV RMSE mean: 0.16504133909005891
 ```
 
-This shows that the model's predictions were within about ±15% of the actual house prices, showing consistent and improved performance compared to Linear Regression. The model fits well for fold (`0.12069886`) and struggled with fold (`0.26438578`). This could indicate outliers or different distributions in that fold.
+This shows that the model's predictions were within about ±15% of the actual house prices, showing consistent and improved performance compared to Linear Regression. The model fits well for fold (`0.11952967`) and struggled with fold (`0.25096448`). This could indicate outliers or different distributions in that fold.
 
-When validated on unseen data, Ridge Regression achieved an R square value of `0.891325432939528`. This explains aproximately 89.1% of the variance in house prices. However, there is still a remaining 10.9% of the variation still unexplained, likely due to factors the model did not capture. This includes missing features, noise and nonlinear patterns. 
+When validated on unseen data, Ridge Regression achieved an R square value of `0.8794372046130793`. This explains aproximately 87.9% of the variance in house prices. However, there is still a remaining 12.1% of the variation still unexplained, likely due to factors the model did not capture. This includes missing features, noise and nonlinear patterns. 
 
 
 #### Model Comparison
@@ -884,11 +884,7 @@ The results showed that as alpha increased from 0.1 to 10, the validation RMSE s
 
 The final model used the best alpha value 10, applied to the unseen test data to generate predictions. The trained `ridge_cv` model first produced predictions in log-transformed form `y_test_pred_log`, which were then converted back to the original dollar scale using `np.expm1()`. This provided the model's final predicted house prices on the test dataset, ready for performance evaluation.
 
-### Final Model Evaluation and Visualization Phase
-
-#### Data Preprocessing 
-
-Process the data with the same method as shown above. 
+### Final Model Evaluation and Visualization 
 
 #### Correlation heatmap
 
@@ -900,7 +896,7 @@ Figure 1
 
 From Figure 1, factors related to quality (`OverallQual`, `KitchenQual`, `GarageFinish`) and size (`GrLivArea`, `TotalBsmtSF`) exhibit strong positive correlations with price; while factors such materials and finishes (`ExterQual_TA`, `KitchenQual_TA`) have negative or weaker correlations. 
 
-#### Residual distribution 
+#### Linear Regression Top 20 Coefficients 
 
 <img width="1119" height="547" alt="image" src="https://github.com/user-attachments/assets/88cadf38-f7e2-4266-8ea7-a7bc24e1e67f" />
 
@@ -912,7 +908,7 @@ From this, we can conclude that more significant factors impacting sale price of
 
 There is also an observable gradual decrease in coefficient sizes. This shows that the model spreads importance more evenly across features and does not rely heavily on one or two. This means that the Ridge Regression prevents overfitting, and is a balanced, reliable model.
 
-#### Predicted price distribution 
+#### Ridge Regression Top 20 Coefficients 
 
 <img width="1139" height="547" alt="image" src="https://github.com/user-attachments/assets/ef717ac5-6291-47d2-864c-af123315cde0" />
 
@@ -924,8 +920,7 @@ From this, we can conclude that more significant factors impacting sale price of
 
 There is also an observable gradual decrease in coefficient sizes. This shows that the model spreads importance more evenly across features and does not rely heavily on one or two. This means that the Ridge Regression prevents overfitting, and is a balanced, reliable model.
 
-#### Feature importance plot 
-
+#### Scatter plots 
 <img width="694" height="552" alt="image" src="https://github.com/user-attachments/assets/bff6add4-a3fe-4f6d-bba3-656cc9f5d418" />
 <img width="694" height="552" alt="image" src="https://github.com/user-attachments/assets/fe42d1ca-d265-41b8-ac08-8d3bc6fb1fa4" />
 
