@@ -1,5 +1,6 @@
 # SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
+By: Frank, Cadence, Lynn
 
 ## Objectives
 The goal of this project is to explore the differences between Linear Regression and Ridge Regression by using the dataset [House Prices - Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data). We aim to compare the strengths and weaknesses of both models to improve their performance.
