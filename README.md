@@ -927,16 +927,15 @@ There is also an observable gradual decrease in coefficient sizes. This shows th
 
 Figure 4 & 5
 
-Figure 4 and 5 show scatter plots for Linear Regression and Ridge Regression respectively. Generally, the predicted line is fitted in the trend of the points, proving the general linear relationship. 
-
+Figure 4 and 5 show scatter plots for Linear Regression and Ridge Regression respectively. Generally, the predicted line is fitted in the trend of the points, proving the general linear relationship for both. 
 
 ## Contributions
 
-Frank: 
+Frank: selected dataset, code, script and production of presentation
 
-Lynn:
+Lynn: selected dataset, readme file, script and production of presentation
 
-Cadence:
+Cadence: selected dataset, readme file, script and production of presentation
 
 
    
