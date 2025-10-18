@@ -1,5 +1,6 @@
 # SC5002 Lab Assignment 2
 Exploring Linear and Ridge Regression with Cross-Validation 
+
 By: Frank, Cadence, Lynn
 
 ## Objectives
